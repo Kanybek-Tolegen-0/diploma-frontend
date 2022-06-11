@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import { colors } from '../../../src/assets';
+import { css } from '@emotion/react';
 
 export const ButtonStyled = styled.button`
     ${({color, padding, backgroundColor, borderRadius, fontSize, lineHeight, fontWeight}) => (
-        `color: ${color || colors.Basic.WHITE};
+        css`
+        color: ${color || colors.Basic.WHITE};
         background: ${backgroundColor || colors.Primary.FIERY_ROSE};
         font-size: ${fontSize || 20}px;
         line-height: ${lineHeight || 24}px;

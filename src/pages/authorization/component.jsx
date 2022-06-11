@@ -3,7 +3,7 @@ import image from './../../assets/images/authorization.png';
 import { IconedInput } from './libs/iconed-input/component';
 import { icons } from './../../assets';
 import { Button } from './../../components';
-import { H1Styled } from './styled';
+import { H1Styled, MainWrapper, FormStyled, InputWrapper } from './styled';
 
 export const Authorization = () => {
     const [username, onUsernameChange] = useState('');
@@ -18,11 +18,11 @@ export const Authorization = () => {
     }
 
     return (
-        <div style={{ display: 'flex', gap: '128px', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', paddingTop: '32px'}}>
+        <MainWrapper>
             <img src={image} alt={'authorization'}/>
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '36px', alignItems: 'center'}}>
+            <FormStyled onSubmit={handleSubmit}>
                 <H1Styled>Войти</H1Styled>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px'}}>
+                <InputWrapper>
                     <IconedInput
                         style={{ minWidth: '300px' }}
                         value={username}
@@ -42,9 +42,13 @@ export const Authorization = () => {
                         onChange={handlePasswordChange}
                         required
                         />
-                </div>
-                <Button style={{ minWidth: '300px' }} type={'submit'}>Войти</Button>
-            </form>        
-        </div>
+                </InputWrapper>
+                <Button
+                    style={{ minWidth: '300px' }}
+                    type={'submit'}>
+                        Войти
+                </Button>
+            </FormStyled>        
+        </MainWrapper>
     );
 }

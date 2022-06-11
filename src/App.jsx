@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header } from './pages/libs/header/component';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Cafes, Authorization, ContentWrapper } from './pages';
+import { Cafes, Authorization, ContentWrapper, Main } from './pages';
 function App() {
   return (
     <Router>
@@ -9,8 +9,9 @@ function App() {
         <ContentWrapper>
           <Header />
           <Routes>
-            <Route element={<Cafes />} path={'/cafes'}/>
-            <Route element={<Authorization />} path={'/authorization'}/>
+            <Route exact element={<Main />} path={'/'} />
+            <Route exact element={<Cafes />} path={'/cafes'}/>
+            <Route exact element={<Authorization />} path={'/authorization'}/>
           </Routes>
         </ContentWrapper>
     </div>
