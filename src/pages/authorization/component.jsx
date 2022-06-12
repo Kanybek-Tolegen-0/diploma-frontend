@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import image from './../../assets/images/authorization.png';
-import { IconedInput } from './libs/iconed-input/component';
 import { icons } from './../../assets';
-import { Button } from './../../components';
+import { Button, IconedInput } from './../../components';
 import { H1Styled, MainWrapper, FormStyled, InputWrapper } from './styled';
 
 export const Authorization = () => {
