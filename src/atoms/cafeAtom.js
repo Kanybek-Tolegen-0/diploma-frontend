@@ -15,16 +15,20 @@ const actionTypes = {
 };
 
 const actionCreators = {
-    [actionTypes.FETCH_CAFE]: () => null,
+    [actionTypes.FETCH_CAFE]: (id) => id,
     [actionTypes.SET_CAFE]: (cafe) => cafe,
     [actionTypes.HANDLE_ERROR]: (err) => err,
 };
 
-const cafeAtom = createAtom(actionCreators, ({ onAction, schedule, create }, state = initialState) => {
-    onAction(actionTypes.FETCH_CAFE, () => {
-        cafeService.getCafe()
+export const cafeAtom = createAtom(actionCreators, ({ onAction, schedule, create }, state = initialState) => {
+    onAction(actionTypes.FETCH_CAFE, (id) => {
+        state = {...state, status: Statuses.PENDING};
+        schedule((dispatch) => 
+            cafeService.getCafe(id)
+                .then(({ data }) => dispatch(create(actionTypes.SET_CAFE, data)))
+                .catch(err => dispatch(create(actionTypes.HANDLE_ERROR, err))))
     });
-    onAction(actionTypes.SET_CAFE, (cafe) => (state = { ...state, status: Statuses.READY}));
+    onAction(actionTypes.SET_CAFE, (cafe) => (state = { ...state, cafe, status: Statuses.READY}));
     onAction(actionTypes.HANDLE_ERROR, (err) => (state = { ...state, error: err}));
     return state;
 })

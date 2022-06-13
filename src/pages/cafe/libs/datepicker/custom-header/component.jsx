@@ -11,7 +11,6 @@ export const CustomHeader = ({
     prevMonthButtonDisabled,
     nextMonthButtonDisabled
   }) => {
-    console.log(date);
     return (
       <div
         style={{

@@ -28,6 +28,7 @@ export const Authorization = () => {
           }).then(result => {
             localStorage.setItem('access_token', result.data.access);
             localStorage.setItem('refresh_token', result.data.refresh);
+            navigate('/cafes');
           }).catch(error => {
             setLoginError('Неправильный логин/пароль');
         });

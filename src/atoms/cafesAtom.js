@@ -24,9 +24,10 @@ export const cafesAtom = createAtom(actionCreators, ({onAction, schedule, create
     onAction(actionTypes.FETCH_CAFES, () => {
         state = {...initialState, status: Statuses.PENDING};
         schedule(dispatch => (
+            setTimeout(() =>
             cafesService.fetchCafes()
                 .then(({ data }) => dispatch(create(actionTypes.SET_CAFES, data)))
-                .catch((err) => dispatch(create(actionTypes.HANDLE_ERROR, err)))
+                .catch((err) => dispatch(create(actionTypes.HANDLE_ERROR, err))), 3000)
         ));
     })
     onAction(actionTypes.SET_CAFES, (cafes) => state = {...initialState, cafes, status: Statuses.READY});
