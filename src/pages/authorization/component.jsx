@@ -3,19 +3,36 @@ import image from './../../assets/images/authorization.png';
 import { icons } from './../../assets';
 import { Button, IconedInput } from './../../components';
 import { H1Styled, MainWrapper, FormStyled, InputWrapper } from './styled';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const Authorization = () => {
     const [username, onUsernameChange] = useState('');
     const [password, onPasswordChange] = useState('');
-
+    const [loginError, setLoginError] = useState('');
+    const navigate = useNavigate();
+    
     const handleUsernameChange = (e) => (onUsernameChange(e.target.value));
     const handlePasswordChange = (e) => (onPasswordChange(e.target.value));
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(username);
+        axios.post('http://localhost:8000/api/token/', {
+            username: username,
+            password: password
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          }).then(result => {
+            localStorage.setItem('access_token', result.data.access);
+            localStorage.setItem('refresh_token', result.data.refresh);
+          }).catch(error => {
+            setLoginError('Неправильный логин/пароль');
+        });
     }
-
+    
     return (
         <MainWrapper>
             <img src={image} alt={'authorization'}/>
@@ -42,6 +59,7 @@ export const Authorization = () => {
                         required
                         />
                 </InputWrapper>
+                { loginError }
                 <Button
                     style={{ minWidth: '300px' }}
                     type={'submit'}>
